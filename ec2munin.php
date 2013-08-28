@@ -20,6 +20,13 @@ foreach ($regions as $region) {
 		foreach ($reservationItem->instancesSet->children() as $instanceItem) {
 			$group_name = $region;
 			$node_name = $instanceItem->dnsName;
+			foreach ($instanceItem->tagSet->item as $val) {
+				if ($val->key == 'Name') {
+					$node_name = $val->value . ' - ' . $instanceItem->dnsName;
+				} else if ($val->key == 'Group') {
+					$group_name = $val->value . ' - ' . $region;
+				}
+			}
 			$node_ip = $use_public_dns ? $instanceItem->dnsName : $instanceItem->privateIpAddress;
 			$config .= create_munin_config($node_ip, $node_name, $group_name);
 			continue;
