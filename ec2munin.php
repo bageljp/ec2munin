@@ -22,9 +22,10 @@ foreach ($regions as $region) {
 			$node_name = $instanceItem->dnsName;
 			foreach ($instanceItem->tagSet->item as $val) {
 				if ($val->key == 'Name') {
-					$node_name = $val->value . ' - ' . $instanceItem->dnsName;
+					$val->value = str_replace('_', '.', $val->value);
+					$node_name = $val->value . '.' . $instanceItem->dnsName;
 				} else if ($val->key == 'Group') {
-					$group_name = $val->value . ' - ' . $region;
+					$group_name = $val->value . '.' . $region;
 				}
 			}
 			$node_ip = $use_public_dns ? $instanceItem->dnsName : $instanceItem->privateIpAddress;
