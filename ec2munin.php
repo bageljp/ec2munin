@@ -23,9 +23,9 @@ foreach ($regions as $region) {
 			foreach ($instanceItem->tagSet->item as $val) {
 				if ($val->key == 'Name') {
 					$val->value = str_replace('_', '.', $val->value);
-					$node_name = $val->value . '.' . $instanceItem->dnsName;
+					$node_name = $hostname_add_publicdns ? $val->value . '.' . $instanceItem->dnsName : $val->value;
 				} else if ($val->key == 'Group') {
-					$group_name = $val->value . '.' . $region;
+					$group_name = $groupname_add_region ? $val->value . '.' . $region : $val->value;
 				}
 			}
 			$node_ip = $use_public_dns ? $instanceItem->dnsName : $instanceItem->privateIpAddress;
