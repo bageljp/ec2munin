@@ -28,4 +28,5 @@ $config_end_seperater = '### EC2MUNIN END ###';
 
 $use_public_dns = false;
 $hostname_add_publicdns = true;
+$dnsname_is_public = true;
 $groupname_add_region = true;

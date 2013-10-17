@@ -23,7 +23,11 @@ foreach ($regions as $region) {
 			foreach ($instanceItem->tagSet->item as $val) {
 				if ($val->key == 'Name') {
 					$val->value = str_replace('_', '.', $val->value);
-					$node_name = $hostname_add_publicdns ? $val->value . '.' . $instanceItem->dnsName : $val->value;
+					if ($hostname_add_dnsname) {
+						$node_name = $dnsname_is_public ? $val->value . '.' . $instanceItem->dnsName : $val->value . '.' . $instanceItem->privateDnsName;
+					} else {
+						$node_name = $val->value;
+					}
 				} else if ($val->key == 'Group') {
 					$group_name = $groupname_add_region ? $val->value . '.' . $region : $val->value;
 				}
